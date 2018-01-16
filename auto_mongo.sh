@@ -2,8 +2,6 @@
 #
 # MongoDB Backup Script
 # VER. 0.1
-# Note, this is a lobotomized port of AutoMySQLBackup
-# (http://sourceforge.net/projects/automysqlbackup/) for use with 
 # MongoDB.
 #
 # This program is free software; you can redistribute it and/or modify
