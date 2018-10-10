@@ -10,6 +10,7 @@ domainadmin="admin-${user}.easyscreen.io"
 passwordUser="$(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c9)"
 passwordDb="$(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c9)"
 
+
 if [ "${env}" == "stg" ]; 
 then
 	domaines="${user}.stg.easyscreen.io"
@@ -18,12 +19,17 @@ fi
 
 ## Create client and domains in Vesta
 	/usr/local/vesta/bin/v-add-user ${user} ${passwordUser} ${user}@easyscreen.io
+
+#Allow SSH access for user
+		/home/Automatization/propagate_keys.sh ${user}
+
 	/usr/local/vesta/bin/v-add-domain ${user} ${domaines}
 	/usr/local/vesta/bin/v-add-domain ${user} ${domainadmin}
 	/usr/local/vesta/bin/v-add-database ${user} db db ${passwordDb}
 
 ## Add port to nginx
-## Need a way to automatically find available port for the client and add it to nginx.
+cd /home/${user}/conf/web/
+sed -i "s/8080/${port}/g" ${domaines}.nginx.conf
 
 ## Configure Jenkins
 ## Need to copy the user key created by "v-add-user" to Jenkins, so it can rsync on build script.
