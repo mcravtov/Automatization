@@ -13,15 +13,14 @@ passwordDb="$(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c9)"
 if [ "${env}" == "stg" ]; 
 then
 	domaines="${user}.stg.easyscreen.io"
-##elseif [ "${env}" == "stg" ]; then
 	domainadmin="admin-${user}.stg.easyscreen.io"
 fi
 
 ## Create client and domains in Vesta
-/usr/local/vesta/bin/v-add-user ${user} ${passwordUser} ${user}@easyscreen.io
-/usr/local/vesta/bin/v-add-domain ${user} ${domaines}
-/usr/local/vesta/bin/v-add-domain ${user} ${domainadmin}
-/usr/local/vesta/bin/v-add-database ${user} db db ${passwordDb}
+	/usr/local/vesta/bin/v-add-user ${user} ${passwordUser} ${user}@easyscreen.io
+	/usr/local/vesta/bin/v-add-domain ${user} ${domaines}
+	/usr/local/vesta/bin/v-add-domain ${user} ${domainadmin}
+	/usr/local/vesta/bin/v-add-database ${user} db db ${passwordDb}
 
 ## Add port to nginx
 ## Need a way to automatically find available port for the client and add it to nginx.
